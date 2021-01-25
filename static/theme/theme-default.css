@@ -1,0 +1,261 @@
+
+/** 背景颜色 **/
+.theme-bkg-primary {
+  background-color: #FF4D4D !important;
+}
+
+.theme-bkg-primary--fade {
+  background-color: #FFF2F2 !important;
+}
+
+/* 垂直渐变的背景色 */
+.theme-bkg-primary--linear {
+  /* #ifndef APP-NVUE */
+  background: linear-gradient(180deg, #FF4D4D 0%, #FF943C 100%);
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  background-image: linear-gradient(to bottom, #FF4D4D, #FF943C);
+  /* #endif */
+}
+
+/* 左到右渐变的背景色 */
+.theme-bkg-primary-left--linear {
+  /* #ifndef APP-NVUE */
+  background: linear-gradient(90deg,  #FF4D4D 0%,  #FF943C 100%);
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  background-image: linear-gradient(to right, #FF4D4D, #FF943C);
+  /* #endif */
+}
+
+/* 右到左渐变的背景色 */
+.theme-bkg-primary-right--linear {
+  /* #ifndef APP-NVUE */
+  background: linear-gradient(-90deg,  #FF4D4D 0%,  #FF943C 100%);
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  background-image: linear-gradient(to right, #FF4D4D, #FF943C);
+  /* #endif */
+}
+
+.theme-bkg-translate {
+  background-color: transparent !important;
+}
+
+.theme-bkg-light {
+  background-color: #FF943C !important;
+}
+
+.theme-bkg-white {
+  background-color: #ffffff !important;
+}
+
+.theme-bkg-normal {
+  background-color: #f5f5f5 !important;
+}
+
+.theme-bkg-resolve {
+  background-color: #09bb07 !important;
+}
+
+.theme-bkg-reject {
+  background-color: #e64340 !important;
+}
+
+.theme-bkg-invalid {
+  background-color: #e1e1e1 !important;
+}
+
+.theme-bkg-fade {
+  background-color: #959595 !important;
+}
+
+.theme-bkg-fade1 {
+  background-color: #757575 !important;
+}
+
+.theme-bkg-fade2 {
+  background-color: #353535 !important;
+}
+
+.theme-bkg-fade3 {
+	background-color: #cccccc !important;
+}
+
+.theme-bkg-blue {
+	background-color: #197EED !important;
+}
+
+.theme-bkg-blue-gray {
+	background-color: #80BFFF !important;
+}
+
+.theme-bkg-mask {
+  background-color: rgba(26, 26, 26, 0.5);
+}
+
+.theme-bkg-alpha {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/** 字体颜色 **/
+.theme-color-primary {
+  color: #FF4D4D !important;
+}
+
+.theme-color-light {
+  color: #FF943C !important;
+}
+
+.theme-color-blue {
+	color: #1A87FF !important;
+}
+
+.theme-color-white {
+  color: #ffffff !important;
+}
+
+.theme-color-fade {
+  color: #959595 !important;
+}
+
+.theme-color-fade1 {
+  color: #757575 !important;
+}
+
+.theme-color-fade2 {
+  color: #353535 !important;
+}
+.theme-color-fade3 {
+  color: #CCCCCC !important;
+}
+
+.theme-color-resolve {
+  color: #09bb07 !important;
+}
+
+.theme-color-reject {
+  color: #e64340 !important;
+}
+
+.theme-color-invalid {
+  color: #e1e1e1 !important;
+}
+
+/** 字体粗细 **/
+.theme-font-bold {
+  font-weight: bold;
+}
+
+/** 字体大小 **/
+.theme-font-large {
+  font-size: 32rpx !important;
+}
+
+.theme-font-size48 {
+  font-size: 48rpx !important;
+}
+
+.theme-font-size30 {
+  font-size: 30rpx !important;
+}
+
+.theme-font-size36 {
+  font-size: 36rpx !important;
+}
+
+.theme-font-size34 {
+  font-size: 34rpx !important;
+}
+
+.theme-font-size40 {
+  font-size: 42rpx !important;
+}
+
+.theme-font-size42 {
+  font-size: 42rpx !important;
+}
+
+.theme-font-size22 {
+  font-size: 22rpx !important;
+}
+
+.theme-font-mid {
+  font-size: 28rpx !important;
+}
+
+.theme-font-normal2 {
+  font-size: 26rpx !important;
+}
+
+.theme-font-normal {
+  font-size: 24rpx !important;
+}
+
+.theme-font-small {
+  font-size: 20rpx !important;
+}
+
+.theme-font-size18 {
+	font-size: 18rpx !important;
+}
+
+/* 阴影 */
+.theme-shadow-primary {
+  box-shadow: 0px 0px 8px 0px rgba(119, 163, 149, 0.2);
+}
+
+.theme-shadow-normal {
+  box-shadow: 0px 0px 10px 0px rgba(53, 53, 53, 0.15);
+}
+
+/* 线条样式 */
+.theme-border-solid {
+  border-width: 1rpx !important;
+  border-style: solid !important;
+  transform: rotateZ(360deg);
+}
+
+.theme-border-dashed {
+  border-width: 1rpx !important;
+  border-style: dashed !important;
+  transform: rotateZ(360deg);
+}
+
+.theme-border-color-normal {
+  border-color: #E6E6E6 !important;
+}
+
+.theme-border-color-white {
+  border-color: #FFFFFF !important;
+}
+
+.theme-border-color-fade {
+  border-color: #959595;
+}
+
+.theme-border-color-fade1 {
+  border-color: #656565 !important;
+}
+
+.theme-border-color-fade2 {
+  border-color: #353535 !important;
+}
+
+.theme-border-color-primary {
+  border-color: #FF4D4D !important;
+}
+
+.theme-border-color-light {
+  border-color: #FF943C !important;
+}
+
+
+/* 安全区 */
+.theme-safe-area {
+  /* #ifndef APP-NVUE */
+  padding-bottom: 0;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  /* #endif */
+}

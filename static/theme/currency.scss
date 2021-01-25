@@ -1,0 +1,59 @@
+$tabbarHeight: 100rpx;
+$containerWidth: 690rpx;
+$containerRadius: 20rpx;
+$gap-30: 30rpx;
+$shadow: 0 5rpx 10rpx rgba(128, 128, 128, 0.1);
+
+// 审核状态样式
+$statusPending: #FF943C; // 等待中
+$statusResolve: #4FCC81; // 通过
+$statusReject: #FF4D4D; // 拒绝
+
+.theme-color-status-pending {
+  color: $statusPending;
+}
+
+.theme-color-status-resolve {
+  color: $statusResolve;
+}
+
+.theme-color-status-reject {
+  color: $statusReject;
+}
+
+.theme-bkg-status-pending {
+  background-color: $statusPending;
+}
+
+.theme-bkg-status-resolve {
+  background-color: $statusResolve;
+}
+
+.theme-bkg-status-reject {
+  background-color: $statusReject;
+}
+
+.layout-card {
+  width: $containerWidth;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: $shadow;
+}
+
+.item-radius {
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.loading-mask {
+  //position: absolute;
+  //left: 0;
+  //top: 0;
+  //bottom: 0;
+  //right: 0;
+  height: 300rpx;
+}
+
+.custom-nav {
+  padding-left: $gap-30;
+}

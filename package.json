@@ -1,0 +1,24 @@
+{
+  "name": "cloud_warehouse_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://e.coding.net/zhuguoqing130/aishiyi/cloud_warehouse_client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uview-ui": "^1.8.3",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@types/html5plus": "^1.0.1",
+    "@types/uni-app": "^1.4.3",
+    "vuex": "^3.5.1"
+  }
+}

@@ -1,0 +1,95 @@
+
+page {
+  background-color: #f5f5f5 !important;
+  color: #353535 !important;
+  font-size: 24rpx;
+  min-height: 100%;
+}
+
+/* 隐藏scroll-view 的滚动条 */
+/* #ifndef APP-PLUS-NVUE */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none;
+  background: transparent;
+}
+/* #endif */
+
+/* 避免视图复杂时图片会闪一下 */
+/* #ifndef APP-NVUE */
+image {
+  will-change: transform;
+}
+/* #endif */
+
+.page-full {
+  width: 100%;
+  height: 100vh;
+}
+
+.page-width {
+  width: 750rpx;
+}
+
+/**与父view宽高一致*/
+.view-full {
+  /* #ifdef APP-NVUE */
+  flex: 1;
+  /* #endif */
+  /* #ifndef APP-NVUE */
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  /* #endif */
+}
+
+/**与父view宽一致*/
+.view-width-full {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 省略多余文字，不带省略号（如果text有宽度，则会显示省略号） */
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* #ifndef APP-NVUE */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+// white-space: nowrap;
+  /* #endif */
+}
+
+/* 省略多余文字，最多两行 */
+.text-overflow-2 {
+  /* #ifdef APP-NVUE */
+  lines: 2;
+  /* #endif */
+  /* #ifndef APP-NVUE */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* #endif */
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* 线条 */
+.line {
+  position: absolute;
+  /* #ifndef APP-NVUE */
+  width: 100%;
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  flex: 1;
+  /* #endif */
+  border-top-style: solid;
+  border-top-color: #ededed;
+  border-top-width: 2rpx;
+  height: 2rpx;
+  right: 0;
+  transform: scaleY(0.5);
+}

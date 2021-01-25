@@ -1,0 +1,127 @@
+/** Flex 布局 */
+.flex {
+  display: flex;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.flex-shrink {
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/** 横向 布局 */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+/** 横向 居中 布局 */
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/** 逆横向 布局 */
+.flex-row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  box-sizing: border-box;
+}
+
+/** 逆横向 布局 */
+.flex-row-reverse-center {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/** 竖向 布局 */
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/** 竖向 布局 */
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/** 逆竖向 布局 */
+.flex-column-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+  box-sizing: border-box;
+}
+
+/** 逆竖向 布局 */
+.flex-column-reverse-center {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/** 居中 */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/************** 主轴布局 ***************/
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-justify-around {
+  justify-content: space-around;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+/************** 副轴布局 ***************/
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-end {
+  align-items: flex-end;
+}
+
+/************** item ***************/
+.flex-align-self-start {
+  align-self: flex-start;
+}
+
+.flex-align-self-end {
+  align-self: flex-end;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}

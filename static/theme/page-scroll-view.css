@@ -1,0 +1,22 @@
+.ag-scroll-view-page {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	position: relative;
+	flex-direction: column;
+	height: 100vh;
+	width: 100%;
+}
+
+.ag-scroll-view-box {
+	position: relative;
+	flex: 1;
+}
+
+.ag-scroll-view {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}

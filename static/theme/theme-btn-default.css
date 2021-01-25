@@ -1,0 +1,44 @@
+/** 点击态 **/
+.theme-btn-hover {
+  opacity: 0.8;
+  background-color: #fafafa;
+}
+
+.theme-btn-min-hover {
+  opacity: 0.9;
+  transform: scale(0.95, 0.95);
+  /* #ifndef APP-PLUS-NVUE */
+  -webkit-transform: scale(0.95, 0.95);
+  -moz-transform: scale(0.95, 0.95);
+  -ms-transform: scale(0.95, 0.95);
+  -o-transform: scale(0.95, 0.95);
+  /* #endif */
+}
+
+.theme-btn-rect-hover {
+  position: relative;
+  top: 3rpx;
+  left: 3rpx;
+  overflow: hidden;
+  opacity: 0.9;
+  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.1) inset;
+}
+
+/* 按钮背景 */
+.theme-btn-primary--linear {
+  /* #ifndef APP-NVUE */
+  background: linear-gradient(0deg, #FF4D4D 0%, #FF943C 100%);
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  background-image: linear-gradient(to top, #FF4D4D, #FF943C);
+  /* #endif */
+}
+
+.theme-btn-primary--linear:active {
+  /* #ifndef APP-NVUE */
+  background: linear-gradient(180deg, #FF4D4D 0%, #FF943C 100%);
+  /* #endif */
+  /* #ifdef APP-NVUE */
+  background-image: linear-gradient(to bottom, #FF4D4D, #FF943C);
+  /* #endif */
+}
