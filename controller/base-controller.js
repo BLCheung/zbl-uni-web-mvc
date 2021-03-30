@@ -1,10 +1,31 @@
-import ASY from '@/base/asy.js';
+import ASY  from '@/base/asy.js';
+import util from '@/utils/util';
 
 export default class BaseController {
+
+  static TYPE_REFRESH = 'refresh';
+
+  static TYPE_UPDATE = 'update';
+
   // 默认网络请求回调函数
   onTaskCompleted({ code, data }, taskName) {
     console.error('请业务Controller重写onTaskCompleted方法');
   }
+
+  /**
+   * 用于接收页面数据监听事件
+   * @param allPageParams 所有页面接收的页面数据
+   */
+  onAllPageObserved(allPageParams = null) {};
+
+  /**
+   * 用于接收页面数据监听事件
+   * @param currentPageParams 当前页面接收的页面数据
+   */
+  onCurrentPageObserved(currentPageParams = null) {
+    console.log('currentPageParams:', currentPageParams);
+  }
+
 
   _modelMap = {};
   _context = null;
@@ -18,6 +39,33 @@ export default class BaseController {
     this._proxy = proxy ? proxy : this; // 默认为自己
     this._modelClassList = modelClassList;
     this.initModel();
+  }
+
+  /**
+   * 获取任意class的类名
+   * @param clazz
+   * @returns {*}
+   */
+  static getClassName(clazz) {
+    return clazz.name;
+  }
+
+  /**
+   * 获取当前类名
+   * @returns {string|undefined|*|null}
+   */
+  getCurrentClassName() {
+    if (!this._proxy) return null;
+    return util.getObjectClassName(this._proxy);
+  }
+
+  /**
+   * 获取视图层上下文
+   * @returns {null}
+   */
+  getContext() {
+    ASY.assert(this._context, '构造函数未传入context参数');
+    return this._context;
   }
 
   /**
@@ -78,5 +126,34 @@ export default class BaseController {
     let proxy = this._proxy;
     ASY.assert(proxy[callback], `${ callback }未实现方法`);
     proxy[callback](result, taskName)
+  }
+
+
+  /**
+   * 向特定页面订阅事件
+   * @param pageName
+   * @param data
+   */
+  publishPageData(pageName, data) {
+    if (!this._context || !pageName) return;
+    this._context.publishPage(pageName, data);
+  }
+
+  /**
+   * 关闭对应页面的监听事件
+   * @param pageName
+   */
+  disablePageData(pageName) {
+    if (!this._context || !pageName) return;
+    this._context.disableObservePage(pageName);
+  }
+
+  /**
+   * 获取当前页面对应的监听事件数据
+   * @returns {null|*}
+   */
+  getCurrentPageData() {
+    if (!this._context) return null;
+    return this._context.getPageObserver(this.getCurrentClassName());
   }
 }

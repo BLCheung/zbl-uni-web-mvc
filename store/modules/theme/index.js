@@ -1,17 +1,28 @@
 /**
  * 主题
  */
-import Theme     from '@/consts/theme'
-import mutations from './mutations';
-import getters   from './getters';
-import actions   from './actions';
+import Theme from '@/consts/theme'
 
 export default {
   namespaced: true,
   state:      {
     ...Theme,
   },
-  mutations:  mutations,
-  actions:    actions,
-  getters:    getters,
+
+  mutations:  {
+    update(state, theme) {
+      Object.assign(state, theme);
+    },
+  },
+
+  getters:    {
+    /**
+     * 获取主题所有颜色
+     */
+    getColor: state => {
+      return state.color;
+    },
+  },
+
+  actions:    {},
 }

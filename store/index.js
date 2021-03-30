@@ -1,6 +1,7 @@
 import Vuex           from 'vuex';
 import Vue            from 'vue';
-import moduleConfig   from './modules/config/index';
+import moduleConfig    from './modules/config/index';
+import moduleSystem   from './modules/system/index';
 import moduleTheme    from './modules/theme/index';
 import moduleUser     from './modules/user/index';
 import moduleObserver from './modules/observer/index';
@@ -8,7 +9,8 @@ import moduleObserver from './modules/observer/index';
 Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
-    config:   moduleConfig,
+    system:   moduleSystem,
+    config:    moduleConfig,
     theme:    moduleTheme,
     user:     moduleUser,
     observer: moduleObserver,

@@ -1,17 +1,44 @@
 /**
  * 配置文件
  */
-import Config    from '@/consts/config';
-import mutations from './mutations';
-import actions   from './actions';
-import getters   from './getters';
+import Config  from '@/consts/config';
 
 export default {
   namespaced: true,
   state:      {
     ...Config,
   },
-  mutations:  mutations,
-  actions:    actions,
-  getters:    getters,
+
+
+  mutations: {
+    update(state, theme) {
+      Object.assign(state, theme);
+    },
+
+    getConfig(state) {
+      return state;
+    },
+  },
+
+  getters: {
+    /**
+     * 获取logo
+     * @param state
+     * @returns {null}
+     */
+    getLogo: state => {
+      return state.logo;
+    },
+
+    /**
+     * 获取小号logo
+     * @param state
+     * @returns {null}
+     */
+    getMinLogo: state => {
+      return state.logo_min;
+    },
+  },
+
+  actions: {},
 }

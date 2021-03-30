@@ -1,10 +1,6 @@
 /**
  * 配置文件
  */
-import mutations from './mutations';
-import actions   from './actions';
-import getters   from './getters';
-
 export default {
   namespaced: true,
   state:      {
@@ -13,7 +9,33 @@ export default {
     ad_id:      null,
     session_id: null,
   },
-  mutations:  mutations,
-  action:     actions,
-  getters:    getters,
+
+  mutations: {
+    setToken(state, token) {
+      state.token = token;
+    },
+
+    setUserInfo(state, userInfo) {
+      state.userInfo = { ...userInfo };
+    },
+
+    logout(state) {
+      state.token = null;
+      state.userInfo = {};
+    },
+  },
+
+  getters: {
+    // 是否已登录
+    isLogin: (state, getters, rootState) => {
+      return state.token != null;
+    },
+
+    // 用户信息
+    userInfo: (state, getters, rootState) => {
+      return state.userInfo;
+    },
+  },
+
+  action: {},
 }
