@@ -4,30 +4,30 @@
 export default {
   namespaced: true,
   state:      {
-    // 需要观察的页面
+    // 通信的页面
     pages: {},
   },
-
-  mutations:  {
+  
+  mutations: {
     /**
-     * 发布
+     * 传递页面数据
      * @param state
      * @param obj
      */
     publish(state, obj) {
       const { pageName, data } = obj;
-      state.pages[pageName] = data;
+      state.pages[pageName]    = data;
     },
   },
-
-  getters:    {
+  
+  getters: {
     /**
-     * 获取pages状态
+     * 获取pages
      */
     pages: state => {
       return state.pages;
     },
   },
-
-  actions:    {},
+  
+  actions: {},
 }

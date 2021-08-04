@@ -24,7 +24,7 @@ export const pageMixin = {
   computed: {
     ...mapGetters('system', [ 'system' ]),
     
-    ...mapGetters('observer', [ 'pages' ]),
+    ...mapGetters('pages', [ 'pages' ]),
     
     ...mapState('theme', [ 'color' ]),
     
@@ -58,7 +58,7 @@ export const pageMixin = {
   
   methods: {
     ...mapMutations('system', [ 'setSystemInfo' ]),
-    ...mapMutations('observer', [ 'publish' ]),
+    ...mapMutations('pages', [ 'publish' ]),
     
     /**
      * 设置导航栏标题
@@ -79,7 +79,7 @@ export const pageMixin = {
      * 同步加载态标识（需要有加载组件的情况下）
      */
     synchronizePageLoading() { this.isPageLoading = !this.isPageLoading; },
-  
+    
     /**
      * 同步加载态标识（需要有加载组件的情况下）
      */
