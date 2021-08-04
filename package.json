@@ -1,5 +1,5 @@
 {
-  "name": "cloud_warehouse_client",
+  "name": "zbl-web-mvc",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/html5plus": "^1.0.1",
-    "@types/uni-app": "^1.4.3",
+    "@types/uni-app": "^1.4.4",
     "vuex": "^3.5.1"
   }
 }

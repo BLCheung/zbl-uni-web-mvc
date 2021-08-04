@@ -1,5 +1,5 @@
 {
-    "name" : "cloud_warehouse_client",
+    "name" : "zbl-web-mvc",
     "appid" : "__UNI__7467F9B",
     "description" : "",
     "versionName" : "1.0.0",
@@ -75,7 +75,7 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     }
 }

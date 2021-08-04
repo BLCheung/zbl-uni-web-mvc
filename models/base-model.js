@@ -11,7 +11,7 @@ export default class BaseModel {
   static name() {
     return undefined;
   }
-
+  
   /**
    * 子类需要重写
    * 工厂方法
@@ -19,7 +19,7 @@ export default class BaseModel {
   static newModel() {
     return new BaseModel();
   }
-
+  
   /**
    * 任务名字
    * model.task [user.login]
@@ -28,7 +28,7 @@ export default class BaseModel {
     console.log(task)
     return this.name() + '.' + task;
   }
-
+  
   /**
    * 返回一个分页
    * @param url
@@ -41,8 +41,8 @@ export default class BaseModel {
   static paging(url, params = {}, method = HTTPMethodEnum.GET, pageSize = 10, pageNumber = 1) {
     return new PagingKit(url, params, method, pageSize, pageNumber);
   }
-
-
+  
+  
   /**
    * 定义一个网络请求
    * @param url 请求链接
@@ -50,7 +50,7 @@ export default class BaseModel {
    * @param data 请求内容
    * @param query query参数
    */
-  static TaskItem(url, method = 'GET', data = {}, query = {}) {
+  static TaskItem(url, method = HTTPMethodEnum.GET, data = {}, query = {}) {
     return {
       url,
       method,
@@ -58,13 +58,13 @@ export default class BaseModel {
       initQuery: query,
     }
   }
-
+  
   _taskList = {};
-
+  
   constructor(taskList = {}) {
     this._taskList = taskList;
   }
-
+  
   /**
    * 发起一个网络请求任务
    * @param name 任务名称
@@ -75,9 +75,9 @@ export default class BaseModel {
     let taskItem = this._taskList[name]
     ASY.assert(taskItem, '未定义网络任务:' + name)
     let { url, method, initData, initQuery } = taskItem;
-    let newData = { ...initData, ...data }
-    let newQuery = { ...initQuery, ...query }
-
+    let newData                              = { ...initData, ...data }
+    let newQuery                             = { ...initQuery, ...query }
+    
     let newUrl = this._appendQueryParams(url, newQuery)
     switch (method.toUpperCase()) {
       case HTTPMethodEnum.GET:
@@ -93,7 +93,7 @@ export default class BaseModel {
         break;
     }
   }
-
+  
   _appendQueryParams(url, query = {}) {
     let and = '?'
     if (url.indexOf('?') != -1) {
@@ -101,7 +101,7 @@ export default class BaseModel {
     }
     return url + and + this._encodeQueryParams(query)
   }
-
+  
   _encodeQueryParams(obj) {
     let params = []
     Object.keys(obj).forEach((key) => {

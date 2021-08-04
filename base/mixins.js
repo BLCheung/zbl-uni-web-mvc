@@ -4,7 +4,7 @@ import LoadMoreEnum                           from '@/enum/load-more-enum';
 
 /**
  * 页面混入
- * @type {{controller: null, onUnload(): void, onShow(): (undefined), data(): {isTopPage: boolean, loadMore: string, pageLifecycle: null, isPageLoading: boolean}, computed: {system: Computed, pages: Computed, color: Computed, windowHeightStyle(): {height: string}}, methods: {_judgePage(): void, showListLoading(): void, backToTop(): void, publishPage(*=, *=): (undefined), getAllPageObserver(): {}, setNavTitle(*=): void, closeListLoading(): void, releaseCommit(): void, setSystemInfo: MutationMethod, disableObservePage(*=): (undefined), synchronizePageLoading(): void, showPageLoading(): void, synchronizeCommit(): void, publish: MutationMethod, lockCommit(): void, getPageObserver(*): *, closePageLoading(): void}, onLoad(): void, onHide(): void, onReady(): void}}
+ * @type {{controller: null, onUnload(): void, onShow(): (undefined), data(): {isTopPage: boolean, loadMore: string, pageLifecycle: null, isPageLoading: boolean}, computed: {system: Computed, pages: Computed, color: Computed, windowHeightStyle(): {height: string}}, methods: {_judgePage(): void, showListLoading(): void, backToTop(): void, publishPage(*=, *=): (undefined), getAllPageData(): {}, setNavTitle(*=): void, closeListLoading(): void, releaseCommit(): void, setSystemInfo: MutationMethod, removePageData(*=): (undefined), synchronizePageLoading(): void, showPageLoading(): void, synchronizeCommit(): void, publish: MutationMethod, lockCommit(): void, getPageData(*): *, closePageLoading(): void}, onLoad(): void, onHide(): void, onReady(): void}}
  */
 export const pageMixin = {
   data() {
@@ -20,30 +20,25 @@ export const pageMixin = {
     };
   },
   controller: null,
-
+  
   computed: {
     ...mapGetters('system', [ 'system' ]),
-
+    
     ...mapGetters('observer', [ 'pages' ]),
-
+    
     ...mapState('theme', [ 'color' ]),
-
-
+    
+    
     /**
      * 可用窗口高度
      * @returns {{height: string}}
      */
-    windowHeightStyle() {
-      return { height: this.system.windowHeight * 2 + 'rpx' };
-    },
-
+    windowHeightStyle() { return { height: this.system.windowHeight * 2 + 'rpx' }; },
+    
   },
-
-  onLoad() {
-    this.pageLifecycle = PageLifecycle.ON_LOAD;
-    // this.setNavTitle();
-  },
-
+  
+  onLoad() { this.pageLifecycle = PageLifecycle.ON_LOAD; },
+  
   onShow() {
     this.pageLifecycle = PageLifecycle.ON_SHOW;
     this.setSystemInfo(uni.getSystemInfoSync());
@@ -51,23 +46,20 @@ export const pageMixin = {
     if (!this.controller) return;
     this.controller.onAllPageObserved(this.controller.getCurrentPageData());
   },
-
-  onReady() {
-    this.pageLifecycle = PageLifecycle.ON_READY;
-  },
-
-  onHide() {
-    this.pageLifecycle = PageLifecycle.ON_HIDE;
-  },
-
+  
+  onReady() { this.pageLifecycle = PageLifecycle.ON_READY; },
+  
+  onHide() { this.pageLifecycle = PageLifecycle.ON_HIDE; },
+  
   onUnload() {
     this.pageLifecycle = PageLifecycle.ON_UNLOAD;
+    !!this.controller && this.controller.removePageTimer();
   },
-
+  
   methods: {
     ...mapMutations('system', [ 'setSystemInfo' ]),
     ...mapMutations('observer', [ 'publish' ]),
-
+    
     /**
      * 设置导航栏标题
      * @param title
@@ -76,94 +68,75 @@ export const pageMixin = {
       const navTitle = 'uni-app';
       uni.setNavigationBarTitle({ title: title ? title : navTitle });
     },
-
+    
     /**
      * 页面回到顶部
      */
-    backToTop() {
-      uni.pageScrollTo({ scrollTop: 0, duration: 100 });
-    },
-
-
-
-
+    backToTop() { uni.pageScrollTo({ scrollTop: 0, duration: 100 }); },
+    
+    
     /**
      * 同步加载态标识（需要有加载组件的情况下）
      */
-    synchronizePageLoading() {
-      this.isPageLoading = !this.isPageLoading;
-    },
-
+    synchronizePageLoading() { this.isPageLoading = !this.isPageLoading; },
+  
+    /**
+     * 同步加载态标识（需要有加载组件的情况下）
+     */
+    synchronizeListLoading() { this.isListLoading = !this.isListLoading; },
+    
     /**
      * 开启加载态
      */
-    showPageLoading() {
-      this.isPageLoading = true;
-    },
-
+    showPageLoading() { this.isPageLoading = true; },
+    
     /**
      * 关闭加载态
      */
-    closePageLoading() {
-      this.isPageLoading = false;
-    },
-
+    closePageLoading() { this.isPageLoading = false; },
+    
     /**
      * 打开列表加载态
      */
-    showListLoading() {
-      this.isListLoading = true;
-    },
-
+    showListLoading() { this.isListLoading = true; },
+    
     /**
      * 关闭列表加载态
      */
-    closeListLoading() {
-      this.isListLoading = false;
-    },
-
+    closeListLoading() { this.isListLoading = false; },
+    
     /**
      * 同步锁提交按钮
      */
-    synchronizeCommit() {
-      this.canCommit = !this.canCommit;
-    },
-
+    synchronizeCommit() { this.canCommit = !this.canCommit; },
+    
     /**
      * 锁住提交状态
      */
-    lockCommit() {
-      this.canCommit = false;
-    },
-
+    lockCommit() { this.canCommit = false; },
+    
     /**
      * 释放提交状态
      */
-    releaseCommit() {
-      this.canCommit = true;
-    },
-
-
-
-
+    releaseCommit() { this.canCommit = true; },
+    
+    
     /**
      * 获取传递给特定更新页面的数据
      * @param pageName 页面Name
      * @returns {*}
      */
-    getPageObserver(pageName) {
+    getPageData(pageName) {
       if (!this.pages[pageName]) return null;
       return this.pages[pageName];
     },
-
+    
     /**
      * 获取所有被传递数据的页面对象
      * @returns {{}}
      */
-    getAllPageObserver() {
-      return this.pages;
-    },
-
+    getAllPageData() { return this.pages; },
+    
     /**
      * 像特定页面传递
      * @param pageName 页面
@@ -176,21 +149,20 @@ export const pageMixin = {
         data,
       });
     },
-
+    
     /**
      * 清除特定页面传递的数据
      * @param pageName 页面
      */
-    disableObservePage(pageName) {
+    removePageData(pageName) {
       if (!pageName) return;
       this.publish({
         pageName,
         data: null,
       });
     },
-
-
-
+    
+    
     /**
      * 判断页面栈
      * @private
@@ -216,20 +188,20 @@ export const componentMixin = {
         return {};
       },
     },
-
+    
     itemIndex: Number,
     lifecycle: String,
   },
   data() {
     return {};
   },
-
+  
   computed: {
-
+    
     ...mapState('theme', [ 'color' ]),
-
+    
   },
-
+  
   methods: {
     /**
      * 获取组件布局信息
