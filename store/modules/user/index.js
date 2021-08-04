@@ -1,41 +1,47 @@
 /**
  * 配置文件
  */
+import UserKit from '@/kit/user-kit';
+
 export default {
   namespaced: true,
   state:      {
-    token:      null,
-    userInfo:   {},
-    ad_id:      null,
-    session_id: null,
+    token:    '',
+    userInfo: {},
   },
-
+  
   mutations: {
     setToken(state, token) {
-      state.token = token;
+      if (!token) return;
+      UserKit.setToken(token);
     },
-
+    
     setUserInfo(state, userInfo) {
       state.userInfo = { ...userInfo };
+      UserKit.setUserInfo({ ...userInfo });
     },
-
+    
     logout(state) {
-      state.token = null;
+      state.token    = '';
       state.userInfo = {};
+      UserKit.removeToken();
+      UserKit.removeUserInfo();
     },
   },
-
+  
   getters: {
     // 是否已登录
     isLogin: (state, getters, rootState) => {
-      return state.token != null;
+      state.token = UserKit.getToken();
+      return !!state.token;
     },
-
+    
     // 用户信息
     userInfo: (state, getters, rootState) => {
+      state.userInfo = UserKit.getUserInfo();
       return state.userInfo;
     },
   },
-
+  
   action: {},
 }

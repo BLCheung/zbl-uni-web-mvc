@@ -1,5 +1,5 @@
 /**
- * Observer
+ * System
  */
 export default {
   namespaced: true,
