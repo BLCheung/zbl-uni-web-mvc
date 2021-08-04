@@ -15,4 +15,7 @@ export default {
     reject:      '#FF4D4D',
     tabbarFade:  '#807979',
   },
+  style: {
+    tabBarHeight: 100,
+  },
 }

@@ -1,43 +1,52 @@
 <template>
   <view class="tabbar-container">
     <view
-      :style="{ zIndex: zIndex }"
+      id="content"
+      :style="[{ zIndex: zIndex ? parseInt(zIndex) : 99 }, customStyle]"
       class="tabbar-container"
-      :class="[fixed ? 'tabbar-container--fixed' : '', containerStyle]"
+      :class="[fixed ? 'tabbar-container--fixed' : '']"
     >
-      <slot/>
-      <view :style="{height: height + 'rpx'}"/>
-      <ag-safe-area/>
-    </view>
-
-    <!-- <view v-if="fixed" class="tabbar-container">
-      <view :style="{'height': tabbarHeight}" />
+      <slot />
+      <view :style="[tabBarHeight]" />
       <ag-safe-area />
-    </view> -->
+    </view>
   </view>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import AgSafeArea   from '@/components/ag/ag-safe-area/ag-safe-area';
 
 export default {
-  name:  'agTabbarHolder',
-  props: {
-    fixed:          {
-      type:    Boolean,
-      default: false,
+  name:       'agTabbarHolder',
+  components: { AgSafeArea },
+  props:      {
+    fixed:       Boolean,
+    zIndex:      {
+      type: [ Number, String ],
     },
-    zIndex:         {
-      type:    [Number, String],
-      default: 9,
+    customStyle: {
+      type: Object,
+      default() {
+        return {}
+      },
     },
-    containerStyle: String,
-    height: [Number, String],
+    height:      [ Number, String ],
   },
   data() {
     return {};
   },
 
+  computed: {
+    ...mapState('theme', [ 'style' ]),
+
+    tabBarHeight() {
+      let style    = {};
+      style.height = `${ this.height ? this.height : this.style.tabBarHeight }rpx`;
+
+      return style;
+    },
+  },
 }
 </script>
 
