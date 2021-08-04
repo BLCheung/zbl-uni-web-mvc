@@ -1,11 +1,14 @@
 <template>
-  <view :style="{backgroundColor: bgColor}" class="safe-area theme-safe-area page-width"/>
+  <view :style="{backgroundColor: bgColor}" class="safe-area theme-safe-area page-width" />
 </template>
 
 <script>
+import { componentMixin } from '@/base/mixins';
+
 export default {
-  name:  'agSafeArea',
-  props: {
+  name:   'agSafeArea',
+  mixins: [ componentMixin ],
+  props:  {
     bgColor: {
       type:    String,
       default: '#f5f5f5',

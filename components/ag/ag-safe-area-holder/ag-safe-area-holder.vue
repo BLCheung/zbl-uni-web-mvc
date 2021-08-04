@@ -1,34 +1,78 @@
 <template>
-  <view
-    :style="{ zIndex: zIndex ? parseInt(zIndex) : 0 }"
-    class="safe-area-container"
-    :class="[fixed ? 'safe-area-container--fixed' : '', shadow ? 'safe-area-container--shadow' : '', containerStyle]"
-  >
-    <slot/>
-    <ag-safe-area :bg-color="bgColor"/>
+  <view :style="[safeAreaStyle]" class="safe-area-container">
+    <view
+      id="content"
+      :style="[{ zIndex: zIndex ? parseInt(zIndex) : 99 }, customStyle]"
+      class="safe-area-container"
+      :class="[fixed ? 'safe-area-container--fixed' : '', shadow ? 'safe-area-container--shadow' : '']"
+    >
+      <slot />
+      <ag-safe-area :bg-color="bgColor" />
+    </view>
   </view>
 </template>
 
 <script>
+import { componentMixin } from '@/base/mixins';
+import AgSafeArea         from '@/components/ag/ag-safe-area/ag-safe-area';
+
 export default {
-  name:  'agSafeAreaHolder',
-  props: {
-    fixed:          {
+  name:       'agSafeAreaHolder',
+  mixins:     [ componentMixin ],
+  components: { AgSafeArea },
+  props:      {
+    fixed:       {
       type:    Boolean,
-      default: false,
+      default: true,
     },
-    shadow:         Boolean,
-    zIndex:         {
+    shadow:      Boolean,
+    zIndex:      {
       type: [ Number, String ],
     },
-    containerStyle: String,
-    bgColor:        {
+    customStyle: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    bgColor:     {
       type:    String,
       default: '#f5f5f5',
     },
+    holder:      {
+      type:    Boolean,
+      default: true,
+    },
   },
   data() {
-    return {};
+    return {
+      totalHeight: 0,
+    };
+  },
+
+  computed: {
+    safeAreaStyle() {
+      let style = {};
+
+      if (this.holder) {
+        style.height = this.totalHeight + 'rpx';
+      }
+
+      return style;
+    },
+  },
+
+  mounted() {
+    this._initRect();
+  },
+
+  methods: {
+    async _initRect() {
+      const res = await this.getRect('#content');
+      console.log('#content:', res);
+      let { height }   = res;
+      this.totalHeight = height * 2;
+    },
   },
 }
 </script>
@@ -48,6 +92,6 @@ export default {
 }
 
 .safe-area-container--shadow {
-  box-shadow: 0px -3rpx 10rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -3rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 </style>
