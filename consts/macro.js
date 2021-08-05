@@ -1,4 +1,4 @@
-module.exports = {
-	OK: 1,
-	Fail: -1
+export default {
+  OK:   1,
+  Fail: -1,
 };
