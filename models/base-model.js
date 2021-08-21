@@ -9,17 +9,13 @@ export default class BaseModel {
    * 子类需要重写
    * model名字
    */
-  static name() {
-    return undefined;
-  }
+  static name() { return undefined; }
   
   /**
    * 子类需要重写
    * 工厂方法
    */
-  static newModel() {
-    return new BaseModel();
-  }
+  static newModel() { return new BaseModel(); }
   
   /**
    * 任务名字

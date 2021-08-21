@@ -24,8 +24,6 @@ export const pageMixin = {
   computed: {
     ...mapGetters('system', [ 'system' ]),
     
-    ...mapGetters('pages', [ 'pages' ]),
-    
     ...mapState('theme', [ 'color' ]),
     
     
@@ -43,8 +41,6 @@ export const pageMixin = {
     this.pageLifecycle = PageLifecycle.ON_SHOW;
     this.setSystemInfo(uni.getSystemInfoSync());
     this._judgePage();
-    if (!this.controller) return;
-    this.controller.onAllPageObserved(this.controller.getCurrentPageData());
   },
   
   onReady() { this.pageLifecycle = PageLifecycle.ON_READY; },
@@ -58,7 +54,6 @@ export const pageMixin = {
   
   methods: {
     ...mapMutations('system', [ 'setSystemInfo' ]),
-    ...mapMutations('pages', [ 'publish' ]),
     
     /**
      * 设置导航栏标题
@@ -121,47 +116,6 @@ export const pageMixin = {
     releaseCommit() { this.canCommit = true; },
     
     
-    /**
-     * 获取传递给特定更新页面的数据
-     * @param pageName 页面Name
-     * @returns {*}
-     */
-    getPageData(pageName) {
-      if (!this.pages[pageName]) return null;
-      return this.pages[pageName];
-    },
-    
-    /**
-     * 获取所有被传递数据的页面对象
-     * @returns {{}}
-     */
-    getAllPageData() { return this.pages; },
-    
-    /**
-     * 像特定页面传递
-     * @param pageName 页面
-     * @param data 传递的数据
-     */
-    publishPage(pageName, data = null) {
-      if (!pageName) return;
-      this.publish({
-        pageName,
-        data,
-      });
-    },
-    
-    /**
-     * 清除特定页面传递的数据
-     * @param pageName 页面
-     */
-    removePageData(pageName) {
-      if (!pageName) return;
-      this.publish({
-        pageName,
-        data: null,
-      });
-    },
-    
     
     /**
      * 判断页面栈
@@ -197,9 +151,7 @@ export const componentMixin = {
   },
   
   computed: {
-    
     ...mapState('theme', [ 'color' ]),
-    
   },
   
   methods: {

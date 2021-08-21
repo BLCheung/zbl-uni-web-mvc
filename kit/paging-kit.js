@@ -4,20 +4,20 @@ import ResultKit      from './result-kit';
 import HTTPMethodEnum from '@/enum/http-method-enum';
 
 export default class PagingKit {
-
+  
   constructor(url, params = {}, method = HTTPMethodEnum.GET, pageSize = 10, pageNumber = 1) {
-    this.url = url;
-    this.params = params;
-    this.method = method;
-    this.pageSize = pageSize;
+    this.url        = url;
+    this.params     = params;
+    this.method     = method;
+    this.pageSize   = pageSize;
     this.pageNumber = pageNumber;
-    this.hasMore = true;
-    this.locker = false;
-    this._total = [];
-    this._isTest = false;
+    this.hasMore    = true;
+    this.locker     = false;
+    this._total     = [];
+    this._isTest    = false;
     this._test_data = null;
   }
-
+  
   /**
    * 获取更多数据
    * @param {*} refresh 是否重新获取
@@ -38,31 +38,31 @@ export default class PagingKit {
     this._releaseLocker();
     return data;
   }
-
+  
   /**
    * 获取总条目数
    */
-  getLongList() {
+  getList() {
     return this._total;
   }
-
+  
   /**
    * 增加新传参
    */
   addNewParams(params = {}) {
     this.params = { ...this.params, ...params };
   }
-
+  
   setEntityClass(entity) {
     this._entity = entity;
   }
-
+  
   /**
    * 真正的发起请求方法
    */
   async _actualGetData() {
     const params = this._getParams();
-    let request = {
+    let request  = {
       url:     `${ this.url }?current_page=${ this.pageNumber }&per_page=${ this.pageSize }`,
       method:  this.method,
       data:    {
@@ -72,32 +72,30 @@ export default class PagingKit {
       },
       loading: null,
     };
-    let res = {};
+    let res      = {};
     // 是否开启测试
     if (this._isTest) {
       res = ResultKit.OK(this._test_data);
     } else {
       res = await HTTPKit._request(request);
     }
-
+    
     if (!res.isOK()) {
       ASY.toastResult(res);
       return null;
     }
-
-
+    
+    
     const {
             data,
           } = res;
-
-    const { has_next, total, list } = data.pageResult || data;
+    
+    const { has_next, total, items } = data;
     // 没有数据
     if (total === 0) {
       return {
-        hasMore:  false,
-        items:    [],
-        longList: [],
-        ...data,
+        hasMore: false,
+        list:    [],
       };
     }
     // 是否还有下一页
@@ -105,16 +103,14 @@ export default class PagingKit {
     if (this.hasMore) {
       this.pageNumber += 1;
     }
-    let newList = this._formatItem(list)
+    let newList = this._formatItem(items)
     this._accumulate(newList);
     return {
-      hasMore:  this.hasMore,
-      items:    newList,
-      longList: this._total,
-      ...data,
+      hasMore: this.hasMore,
+      list:    this._total,
     };
   }
-
+  
   /**
    * 拼接下一页数组
    * @param {*} items 返回的下一页数组
@@ -122,7 +118,7 @@ export default class PagingKit {
   _accumulate(items) {
     this._total = this._total.concat(items);
   }
-
+  
   _formatItem(list) {
     let newList = [];
     if (this._entity) {
@@ -134,19 +130,19 @@ export default class PagingKit {
     }
     return newList;
   }
-
+  
   _reset() {
-    this.hasMore = true;
+    this.hasMore    = true;
     this.pageNumber = 1;
-    this._total = [];
+    this._total     = [];
   }
-
+  
   _getParams() {
     return {
       ...this.params,
     };
   }
-
+  
   _getLocker() {
     if (this.locker) {
       return false;
@@ -154,18 +150,18 @@ export default class PagingKit {
     this.locker = true;
     return true;
   }
-
+  
   _releaseLocker() {
     this.locker = false;
   }
-
+  
   /**
    * 开启测试模式
    */
   _enableTest() {
     this._isTest = true;
   }
-
+  
   /**
    * 设置测试数据
    * @param {*} data 数据源

@@ -2,19 +2,18 @@ import ASY       from '@/base/asy';
 import ResultKit from '@/kit/result-kit';
 
 /**
- * 小程序权限申请kit
+ * 权限申请kit
  */
 export default class PermissionKit {
-  constructor() {
-  }
+  constructor() {}
   
   /**
-   * 检查权限
+   * 检查小程序权限
    * @param scope 具体的权限scope
    * @param rejectTips 拒绝权限时提示信息
    * @returns {Promise<ResultKit>}
    */
-  static checkPermission(scope = '', rejectTips = '') {
+  static checkMinPermission(scope = '', rejectTips = '') {
     return new Promise((resolve) => {
       uni.getSetting({
         success: res => {

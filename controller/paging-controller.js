@@ -76,41 +76,4 @@ export default class PagingController extends BaseController {
     this._paging.setEntityClass(this._entity);
   }
 
-  /**
-   * onLoad事件
-   */
-  async onLoad() {
-    if (!this._init) {
-      return this.refresh();
-    }
-  }
-
-  /**
-   * 刷新
-   */
-  async refresh() {
-    ASY.createLoading('加载中...');
-    let data = await this._paging.getMoreData(true);
-    if (data) {
-      // let { hasMore, longList } = data;
-      this._proxy.onListChange(data);
-      this._init = true;
-    } else {
-      this._proxy.onNoMore();
-    }
-    ASY.closeLoading();
-  }
-
-  /**
-   * 加载更多
-   */
-  async onLoadMore() {
-    let data = await this._paging.getMoreData();
-    if (data) {
-      // let { hasMore, longList } = data;
-      this._proxy.onListChange(data);
-    } else {
-      this._proxy.onNoMore();
-    }
-  }
 }

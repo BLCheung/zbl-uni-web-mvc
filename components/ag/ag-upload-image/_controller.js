@@ -71,6 +71,6 @@ export default class _UploadController {
 	 * @private
 	 */
 	_checkCameraPermission() {
-		return PermissionKit.checkPermission('scope.camera', '华中助手需要您的摄像头权限，是否去授权？');
+		return PermissionKit.checkMinPermission('scope.camera', '华中助手需要您的摄像头权限，是否去授权？');
 	}
 }
