@@ -1,4 +1,4 @@
-import Base from './base';
+import Base from './Base';
 
 export default {
   mixins: [ Base ],
@@ -21,7 +21,25 @@ export default {
     },
   },
   
+  created() {
+    this._initModels();
+    this._initEvents();
+    this.onComponentCreated();
+  },
+  
+  mounted() { this.onComponentMounted(); },
+  
   methods: {
+    /**
+     * 组件创建
+     */
+    onComponentCreated() {},
+    
+    /**
+     * 组件挂载
+     */
+    onComponentMounted() {},
+    
     /**
      * 获取组件布局信息
      * @param selector

@@ -1,6 +1,10 @@
-import ResultKit from '@/kit/result-kit';
-
 export default class Api {
+  static $on(eventName, callback) { uni.$on(eventName, callback); }
+  
+  static $emit(eventName, param) { uni.$emit(eventName, param); }
+  
+  static $off(eventName, callback) { uni.$off(eventName, callback); }
+  
   /**
    * 断言函数，用于在开发阶段发现错误
    * @param {Object} expression
@@ -45,8 +49,8 @@ export default class Api {
     uni.showModal({
       title,
       content,
-      confirmColor: confirmColor ? confirmColor : store.getters['theme/getColor'].primary,
-      cancelColor:  cancelColor ? cancelColor : store.getters['theme/getColor'].fade2,
+      confirmColor: confirmColor ? confirmColor : '',
+      cancelColor:  cancelColor ? cancelColor : '',
       success(res) {
         if (res.confirm) {
           confirm && confirm();
@@ -111,49 +115,6 @@ export default class Api {
    * @param phoneNumber
    */
   static makePhoneCall(phoneNumber = '') { uni.makePhoneCall({ phoneNumber }); }
-  
-  /**
-   * 微信登录
-   * 小程序的话得到 code
-   * app 得到 access_token、unionid、openid
-   */
-  static wxLogin() {
-    return new Promise((resolve) => {
-      uni.login({
-        provider: 'weixin',
-        success:  function (loginRes) {
-          resolve(ResultKit.OK(loginRes, '登录成功.'));
-        },
-        fail:     function () {
-          resolve(ResultKit.Failed('登录失败.'));
-        },
-        timeout:  function () {
-          resolve(ResultKit.Failed('登录超时.'));
-        },
-      })
-    })
-  }
-  
-  /**
-   * 微信用户信息
-   */
-  static wxGetUserInfo() {
-    return new Promise((resolve) => {
-      uni.getUserInfo({
-        provider:        'weixin',
-        withCredentials: true, // 小程序
-        success:         function (loginRes) {
-          resolve(ResultKit.OK(loginRes, '登录成功.'));
-        },
-        fail:            function () {
-          resolve(ResultKit.Failed('登录失败.'));
-        },
-        timeout:         function () {
-          resolve(ResultKit.Failed('登录超时.'));
-        },
-      })
-    })
-  }
   
   /**
    * 跳转小程序

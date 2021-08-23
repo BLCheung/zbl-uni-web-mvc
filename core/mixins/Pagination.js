@@ -1,8 +1,7 @@
-import Base         from './base';
 import LoadMoreEnum from '@/enum/load-more-enum';
+import Api          from '@/common/api';
 
 export default {
-  mixins:     [ Base ],
   data() {
     return {
       // 列表
@@ -15,9 +14,29 @@ export default {
       isListLoading: false,
     };
   },
+  // 分页器
+  _paging: null,
   
   methods: {
+    /**
+     * 注册paging分页器
+     * @param paging
+     */
+    registerPaging(paging) { this._paging = paging; },
     
+    /**
+     * 注册分页器实体
+     * @param entityClass 实体类名
+     * @example this.registerEntity(TestBean);
+     */
+    registerEntity(entityClass) {
+      if (!this._paging) {
+        Api.assert(this._paging, '分页器未注册!');
+        return;
+      }
+      this._paging.setEntityClass(entityClass);
+    },
+  
     /**
      * 分页同步加载态标识（需要有加载组件的情况下）
      */
@@ -28,7 +47,11 @@ export default {
      * @return {Promise<void>}
      */
     async refresh() {
-      const data = await this.paging().getMoreData(true);
+      if (!this._paging) {
+        Api.assert(this._paging, '分页器未注册!');
+        return;
+      }
+      const data = await this._paging.getMoreData(true);
       this._handlePaging(data);
     },
     
@@ -37,22 +60,32 @@ export default {
      * @return {Promise<void>}
      */
     async onLoadMore() {
+      if (!this._paging) {
+        Api.assert(this._paging, '分页器未注册!');
+        return;
+      }
       const lastLoadMore = this.loadMore;
       this.loadMore      = LoadMoreEnum.LOADING;
-      const data         = await this.paging().getMoreData(false);
+      const data         = await this._paging.getMoreData(false);
       if (!data) {
         this.loadMore = lastLoadMore;
       } else {
         this._handlePaging(data);
       }
     },
-    
-    
+  
     /**
-     * 设置paging分页器
-     * @return {PagingKit}
+     * 追加分页器请求参数
+     * @param params
      */
-    paging() { console.error('请设置paging'); },
+    setPagingParam(params) {
+      if (!this._paging) {
+        Api.assert(this._paging, '分页器未注册!');
+        return;
+      }
+      this._paging.addNewParams(params);
+    },
+    
     
     /**
      * 处理分页数据

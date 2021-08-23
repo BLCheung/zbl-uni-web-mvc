@@ -8,29 +8,22 @@
 </template>
 
 <script>
-import { pageMixin } from '@/base/mixins';
+import Page from '@/core/mixins/Page';
 
 export default {
-  mixins: [ pageMixin ],
+  mixins: [ Page ],
   data() {
     return {
       title: 'uni-app',
     }
   },
 
-  onLoad() {
-    this.initData();
-    this.initViewData();
-  },
-
   methods: {
-    initData() {
+    initArguments() {},
 
-    },
+    initViewData() {},
 
-    initViewData() {
-
-    },
+    onPageShowed() {},
   },
 }
 </script>

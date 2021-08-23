@@ -1,4 +1,4 @@
-import Base             from './base';
+import Base             from './Base';
 import { mapMutations } from 'vuex';
 import PageLifecycle    from '@/enum/page-lifecycle-enum';
 
@@ -18,12 +18,19 @@ export default {
   
   computed: {},
   
-  onLoad() { this.lifecycle = PageLifecycle.ON_LOAD; },
+  onLoad(options) {
+    this._initModels();
+    this.lifecycle = PageLifecycle.ON_LOAD;
+    this._initEvents();
+    this.initArguments(options);
+    this.initViewData();
+  },
   
   onShow() {
     this.lifecycle = PageLifecycle.ON_SHOW;
     this.setSystemInfo(uni.getSystemInfoSync());
     this._judgePage();
+    this.onPageShowed();
   },
   
   onReady() { this.lifecycle = PageLifecycle.ON_READY; },
@@ -32,11 +39,33 @@ export default {
   
   onUnload() {
     this.lifecycle = PageLifecycle.ON_UNLOAD;
-    this.pageTimer     = null;
+    this.pageTimer = null;
+    this.onPageDestroy();
   },
   
   methods: {
     ...mapMutations('system', [ 'setSystemInfo' ]),
+  
+    /**
+     * 可获取页面传参
+     * @param options 页面参数
+     */
+    initArguments(options) {},
+  
+    /**
+     * 初始化视图数据
+     */
+    initViewData() {},
+  
+    /**
+     * 页面已经onShow
+     */
+    onPageShowed() {},
+  
+    /**
+     * 页面被销毁
+     */
+    onPageDestroy() {},
     
     /**
      * 页面回到顶部
