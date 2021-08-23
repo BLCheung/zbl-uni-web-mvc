@@ -6,8 +6,6 @@ export default {
     return {
       // 列表
       list:          [],
-      // 是否还有更多
-      hasMore:       true,
       // 触底加载标识
       loadMore:      LoadMoreEnum.NO_MORE,
       // 分页加载态
@@ -36,7 +34,7 @@ export default {
       }
       this._paging.setEntityClass(entityClass);
     },
-  
+    
     /**
      * 分页同步加载态标识（需要有加载组件的情况下）
      */
@@ -73,7 +71,7 @@ export default {
         this._handlePaging(data);
       }
     },
-  
+    
     /**
      * 追加分页器请求参数
      * @param params
@@ -95,7 +93,7 @@ export default {
     _handlePaging(data) {
       const { hasMore, list } = data;
       this.list               = list;
-      this.hasMore            = hasMore ? LoadMoreEnum.MORE : LoadMoreEnum.NO_MORE;
+      this.loadMore           = hasMore ? LoadMoreEnum.MORE : LoadMoreEnum.NO_MORE;
     },
   },
 }
