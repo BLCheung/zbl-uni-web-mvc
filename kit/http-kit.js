@@ -1,7 +1,6 @@
-import ASY            from '@/base/asy';
+import Api            from '@/common/api';
 import ResultKit      from './result-kit';
 import UserKit        from '@/kit/user-kit';
-import Config         from '@/consts/config';
 import HTTPMethodEnum from '@/enum/http-method-enum';
 
 export default class HTTPKit {
@@ -54,16 +53,15 @@ export default class HTTPKit {
     
     return new Promise((resolve) => {
       
-      ASY.request(url, method, data, {
-        'ag-app':   Config.AG_TYPE,
-        'ag-token': UserKit.getToken(),
+      Api.request(url, method, data, {
+        'token': UserKit.getToken(),
       })
         .then(res => {
           resolve(ResultKit.setResult(res));
         })
         .catch(err => {
           console.error('HTTP error:', err);
-          ASY.createToast('网络开小差了~')
+          Api.createToast('网络开小差了~')
           resolve(ResultKit.Failed('网络开小差了~', null));
         });
     });

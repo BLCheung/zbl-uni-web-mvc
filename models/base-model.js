@@ -1,4 +1,4 @@
-import ASY            from '@/base/asy';
+import Api            from '@/common/api';
 import HTTPKit        from '@/kit/http-kit';
 import PagingKit      from '@/kit/paging-kit';
 import HTTPMethodEnum from '@/enum/http-method-enum';
@@ -71,7 +71,7 @@ export default class BaseModel {
    */
   doTask(name, data = {}, query = {}) {
     let taskItem = this._taskList[name];
-    ASY.assert(taskItem, '未定义网络任务:' + name);
+    Api.assert(taskItem, '未定义网络任务:' + name);
     let { url, method, initData, initQuery } = taskItem;
     let newData                              = { ...initData, ...data };
     let newQuery                             = { ...initQuery, ...query };

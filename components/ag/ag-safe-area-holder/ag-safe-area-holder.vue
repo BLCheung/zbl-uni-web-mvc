@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import { componentMixin } from '@/base/mixins';
-import AgSafeArea         from '@/components/ag/ag-safe-area/ag-safe-area';
+import AgSafeArea from '@/components/ag/ag-safe-area/ag-safe-area';
+import Component  from '@/core/mixins/Component';
 
 export default {
   name:       'agSafeAreaHolder',
-  mixins:     [ componentMixin ],
+  mixins:     [ Component ],
   components: { AgSafeArea },
   props:      {
     fixed:       {

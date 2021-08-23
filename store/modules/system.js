@@ -7,7 +7,7 @@ export default {
     // 需要观察的页面
     pages: {},
   },
-
+  
   mutations: {
     /**
      * 保存系统信息
@@ -18,7 +18,7 @@ export default {
       state.system = { ...systemInfo };
     },
   },
-
+  
   getters: {
     /**
      * 获取系统信息
@@ -27,6 +27,6 @@ export default {
       return state.system;
     },
   },
-
+  
   actions: {},
 }

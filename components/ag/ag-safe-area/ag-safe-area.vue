@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import { componentMixin } from '@/base/mixins';
+import Component from '@/core/mixins/Component';
 
 export default {
   name:   'agSafeArea',
-  mixins: [ componentMixin ],
+  mixins: [ Component ],
   props:  {
     bgColor: {
       type:    String,
@@ -20,11 +20,6 @@ export default {
 <style lang="scss" scoped>
 
 .safe-area {
-  /* #ifndef APP-NVUE || APP-VUE */
-  //height: 0;
-  //height: calc(0 + constant(safe-area-inset-bottom));
-  //height: calc(0 + env(safe-area-inset-bottom));
-  /* #endif */
   z-index: 99;
 }
 </style>

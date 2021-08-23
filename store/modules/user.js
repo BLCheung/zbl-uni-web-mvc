@@ -1,5 +1,5 @@
 /**
- * 配置文件
+ * 用户
  */
 import UserKit from '@/kit/user-kit';
 

@@ -1,4 +1,4 @@
-import ASY       from '@/base/asy';
+import Api       from '@/common/api';
 import ResultKit from '@/kit/result-kit';
 
 /**
@@ -23,7 +23,7 @@ export default class PermissionKit {
               success: res1 => resolve(ResultKit.OK(res1)),
               fail:    err => {
                 // 拒绝授权
-                ASY.createDialog('提示', rejectTips, () => {
+                Api.createDialog('提示', rejectTips, () => {
                   uni.openSetting({
                     success: res2 => {
                       if (res2.authSetting[scope]) {

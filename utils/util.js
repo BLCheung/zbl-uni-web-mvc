@@ -63,48 +63,23 @@ function formatDate(str, format) {
   if (typeof str == 'string') {
     str = str.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
   }
-  const date = new Date(str);
-  const year = date.getFullYear();
+  const date  = new Date(str);
+  const year  = date.getFullYear();
   const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1);
-  const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
-  const h = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
-  const m = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
-  const s = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
-  if (format == 'YYYY-MM-DD') {
-    return year + '-' + month + '-' + day;
-  } else if (format == 'YYYY-MM') {
-    return year + '-' + month;
-  } else if (format == 'YYYY-MM-DD hh:mm:ss') {
-    return `${ year }-${ month }-${ day } ${ h }:${ m }:${ s }`;
-  } else if (format == 'MM-DD hh:mm') {
-    return `${ month }-${ day } ${ h }:${ m }`;
-  } else if (format == 'MM-DD') {
-    return `${ month }-${ day }`;
-  }
+  const day   = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
+  const h     = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
+  const m     = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+  const s     = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
+  if (format == 'YYYY-MM-DD') return year + '-' + month + '-' + day;
+  if (format == 'YYYY-MM') return year + '-' + month;
+  if (format == 'YYYY-MM-DD hh:mm:ss') return `${ year }-${ month }-${ day } ${ h }:${ m }:${ s }`;
+  if (format == 'MM-DD hh:mm') return `${ month }-${ day } ${ h }:${ m }`;
+  if (format == 'MM-DD') return `${ month }-${ day }`;
 }
 
 //兼容ios 时间格式化
 function formatDateIos(str) {
   return str.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
-}
-
-
-// 获取时间差
-/**
- * @param {str1}  开始日期
- * @param {str2}  截止日期
- * @param {type} 1 秒差 2 分差  3时差 4 天数差
- */
-function timeLess(str1, str2, type) {
-  //兼容ios 格式化
-  let v1 = str1.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
-  let v2 = str2.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
-  const date1 = Date.parse(new Date(v1));
-  const date2 = Date.parse(new Date(v2));
-  const min = (date2 - date1) / 1000;
-  if (type == 4) {
-    return Math.floor(min / 60 / 60 / 24);
-  }
 }
 
 /**
@@ -119,11 +94,16 @@ function getPathFileName(path) {
   return path.substr(obj + 1);
 }
 
+/**
+ * 获取url附加参数
+ * @param locationsearch
+ * @return {Object}
+ */
 const getUrlPathParam = (locationsearch) => {
-  let url = locationsearch;
+  let url        = locationsearch;
   let theRequest = new Object();
   if (url.indexOf('?') != -1) {
-    let str = url.substr(url.indexOf('?') + 1);
+    let str  = url.substr(url.indexOf('?') + 1);
     let strs = str.split('&');
     for (let i = 0; i < strs.length; i++) {
       theRequest[strs[i].split('=')[0]] = (strs[i].split('=')[1]);
@@ -167,7 +147,7 @@ function appendUrlParams(url, params = {}) {
  * 高效率的forEach遍历方法
  */
 const forEach = (array, iterator) => {
-  let index = -1;
+  let index    = -1;
   const length = array.length;
   while (++index < length) {
     iterator(array[index], index);
@@ -189,9 +169,7 @@ const union = (arr1 = [], arr2 = []) => Array.from(new Set([ ...arr1, arr2 ]));
  * @param list
  * @returns {boolean}
  */
-const isList = (list) => {
-  return list instanceof Array && list.length !== 0;
-};
+const isList = (list) => { return list instanceof Array && list.length !== 0; };
 
 /**
  * 把数组装成对象
@@ -201,7 +179,7 @@ const isList = (list) => {
 const parseArr2Obj = (arr) => {
   let obj = {};
   for (let i = 0; i < arr.length; i++) {
-    let split = arr[i].split(':');
+    let split     = arr[i].split(':');
     obj[split[0]] = split[1];
   }
   return obj;
@@ -213,7 +191,7 @@ const parseArr2Obj = (arr) => {
  * @param {Number} subArrayLength 拆分后每一维数组的长度
  */
 const sliceArray = (array, subArrayLength) => {
-  let i = 0;
+  let i        = 0;
   let newArray = [];
   while (i < array.length) {
     newArray.push(array.slice(i, i += subArrayLength));
@@ -226,7 +204,7 @@ const sliceArray = (array, subArrayLength) => {
  */
 const combination = (arr, size) => {
   var r = [];
-
+  
   function _(t, a, n) {
     if (n === 0) {
       r[r.length] = t;
@@ -238,7 +216,7 @@ const combination = (arr, size) => {
       _(b, a.slice(i + 1), n - 1);
     }
   }
-
+  
   _([], arr, size);
   return r;
 };
@@ -253,15 +231,15 @@ const initBeanArray = (length, bean = null) => Array(length).fill(bean);
 /* 计算两点的距离 返回的单位是米 */
 const calcDistance = (lat1, lng1, lat2, lng2) => {
   // console.log([lat1, lng1, lat2, lng2])
-  lat1 = lat1 || 0;
-  lng1 = lng1 || 0;
-  lat2 = lat2 || 0;
-  lng2 = lng2 || 0;
+  lat1     = lat1 || 0;
+  lng1     = lng1 || 0;
+  lat2     = lat2 || 0;
+  lng2     = lng2 || 0;
   var rad1 = (lat1 * Math.PI) / 180.0;
   var rad2 = (lat2 * Math.PI) / 180.0;
-  var a = rad1 - rad2;
-  var b = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
-  var r = 6378137;
+  var a    = rad1 - rad2;
+  var b    = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
+  var r    = 6378137;
   return (
     r *
     2 *
@@ -303,8 +281,8 @@ const encryptMobile = (mobile) => {
 const versionCompare = function (curV, reqV) {
   if (curV && reqV) {
     //将两个版本号拆成数字
-    var arr1 = curV.split('.'),
-        arr2 = reqV.split('.');
+    var arr1      = curV.split('.'),
+        arr2      = reqV.split('.');
     var minLength = Math.min(arr1.length, arr2.length),
         position  = 0,
         diff      = 0;
@@ -322,33 +300,6 @@ const versionCompare = function (curV, reqV) {
   }
 };
 
-/**
- * 验证手机号格式
- * @param {String} mobile
- */
-const verifyMobile = (mobile) => {
-
-  if (!mobile) {
-    uni.showToast({
-      title: '手机号码不可为空!',
-      icon:  'none',
-    });
-
-    return false;
-  }
-
-  if (!/^1[3-9]\d{9}$/.test(mobile)) {
-    uni.showToast({
-      title: '手机号码格式不正确!',
-      icon:  'none',
-    });
-
-    return false;
-  }
-
-  return true;
-
-};
 
 /**
  * 是否为车牌号
@@ -359,7 +310,7 @@ const isVehicleNumber = (value) => {
   let bool = false;
   if (value.length === 7) {
     const express = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
-    bool = express.test(value);
+    bool          = express.test(value);
   }
   return bool;
 }
@@ -416,10 +367,8 @@ export default {
   formatDate,
   encryptMobile,
   appendUrlParams,
-  timeLess,
   versionCompare,
   formatDateIos,
-  verifyMobile,
   isList,
   parseArr2Obj,
   checkType,

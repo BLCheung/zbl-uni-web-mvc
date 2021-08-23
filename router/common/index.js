@@ -1,10 +1,10 @@
-import ASY from '@/base/asy';
+import Api from '@/common/api';
 
 const prefix = '/module-common';
 
 export default {
-
+  
   nav2Index() {
-    ASY.navigateTo(`${ prefix }/index/index`);
+    Api.navigateTo(`${ prefix }/index/index`);
   },
 }

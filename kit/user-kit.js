@@ -1,21 +1,21 @@
-import ASY from '@/base/asy';
+import Api from '@/common/api';
 
 export default class UserKit {
   static KEY_TOKEN     = 'token';
   static KEY_USER_INFO = 'user_info';
   
-  static getToken() { return ASY.getStorageSync(this.KEY_TOKEN) || ''; }
+  static getToken() { return Api.getStorageSync(this.KEY_TOKEN) || ''; }
   
   static setToken(token = '') {
     if (!token) return;
-    ASY.setStorageSync(this.KEY_TOKEN, token);
+    Api.setStorageSync(this.KEY_TOKEN, token);
   }
   
-  static removeToken() { ASY.removeStorageSync(this.KEY_TOKEN); }
+  static removeToken() { Api.removeStorageSync(this.KEY_TOKEN); }
   
-  static setUserInfo(userInfo = {}) { ASY.setStorageSync(this.KEY_USER_INFO, userInfo); }
+  static setUserInfo(userInfo = {}) { Api.setStorageSync(this.KEY_USER_INFO, userInfo); }
   
-  static getUserInfo() { return ASY.getStorageSync(this.KEY_USER_INFO) || {}; }
+  static getUserInfo() { return Api.getStorageSync(this.KEY_USER_INFO) || {}; }
   
-  static removeUserInfo() { ASY.setStorageSync(this.KEY_USER_INFO, {}); }
+  static removeUserInfo() { Api.setStorageSync(this.KEY_USER_INFO, {}); }
 }

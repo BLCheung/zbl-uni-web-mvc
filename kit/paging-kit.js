@@ -1,4 +1,4 @@
-import ASY            from '@/base/asy';
+import Api            from '@/common/api';
 import HTTPKit        from './http-kit';
 import ResultKit      from './result-kit';
 import HTTPMethodEnum from '@/enum/http-method-enum';
@@ -81,7 +81,7 @@ export default class PagingKit {
     }
     
     if (!res.isOK()) {
-      ASY.toastResult(res);
+      Api.toastResult(res);
       return null;
     }
     
@@ -90,7 +90,7 @@ export default class PagingKit {
             data,
           } = res;
     
-    const { has_next, total, items } = data;
+    const { has_next, total, list } = data;
     // 没有数据
     if (total === 0) {
       return {
@@ -103,7 +103,7 @@ export default class PagingKit {
     if (this.hasMore) {
       this.pageNumber += 1;
     }
-    let newList = this._formatItem(items)
+    let newList = this._formatItem(list)
     this._accumulate(newList);
     return {
       hasMore: this.hasMore,

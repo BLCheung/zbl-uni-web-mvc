@@ -1,21 +1,21 @@
 /**
  * 主题
  */
-import Theme from '@/consts/theme'
+import Theme from '@/common/theme';
 
 export default {
   namespaced: true,
   state:      {
     ...Theme,
   },
-
-  mutations:  {
+  
+  mutations: {
     update(state, theme) {
       Object.assign(state, theme);
     },
   },
-
-  getters:    {
+  
+  getters: {
     /**
      * 获取主题所有颜色
      */
@@ -23,6 +23,6 @@ export default {
       return state.color;
     },
   },
-
-  actions:    {},
+  
+  actions: {},
 }

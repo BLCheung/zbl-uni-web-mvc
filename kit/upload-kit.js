@@ -1,6 +1,6 @@
-import URL       from '@/consts/url/common';
-import util      from '@/utils/util';
+import Common    from '@/api/common';
 import ResultKit from '@/kit/result-kit';
+import util      from '@/utils/util';
 
 export default class UploadKit {
   constructor() {}
@@ -18,7 +18,7 @@ export default class UploadKit {
           }
           // 上传图片
           uni.uploadFile({
-            url:        URL.UPLOAD,
+            url:        Common.UPLOAD,
             fileType:   'image',
             'formData': {
               path:     'image',
@@ -51,7 +51,7 @@ export default class UploadKit {
       const _upload = () => {
         if (i < max) {
           uni.uploadFile({
-            url:      URL.UPLOAD,
+            url:      Common.UPLOAD,
             fileType: 'image',
             name:     'file',
             // file: files[i],
@@ -89,7 +89,7 @@ export default class UploadKit {
       
       // 上传图片
       uni.uploadFile({
-        url:        URL.UPLOAD,
+        url:        Common.UPLOAD,
         fileType:   'video',
         'formData': {
           path: 'video',

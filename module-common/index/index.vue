@@ -5,27 +5,47 @@
 </template>
 
 <script>
-import { pageMixin } from '@/base/mixins';
+import Page from '@/core/mixins/Page';
 
 export default {
-  mixins:     [ pageMixin ],
+  mixins: [ Page ],
   data() {
-    return {}
-  },
-
-  onLoad() {
-    this.initData();
-    this.initViewData();
+    return {};
   },
 
   methods: {
-    initData() {
+    /**
+     * 注册接口model
+     * @return {*[]}
+     */
+    onRegisterModel() { return []; },
 
-    },
+    /**
+     * 注册页面/组件事件
+     * @return {{}}
+     */
+    onRegisterEvent() { return {}; },
 
-    initViewData() {
+    /**
+     * 可获取页面传参
+     * @param options 页面参数
+     */
+    initArguments(options) {},
 
-    },
+    /**
+     * 初始化视图数据
+     */
+    initViewData() {},
+
+    /**
+     * 页面已经onShow
+     */
+    onPageShowed() {},
+
+    /**
+     * 页面被销毁
+     */
+    onPageDestroy() {},
   },
 }
 </script>
