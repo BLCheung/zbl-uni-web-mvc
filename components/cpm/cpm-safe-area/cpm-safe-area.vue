@@ -6,7 +6,7 @@
 import Component from '@/core/mixins/Component';
 
 export default {
-  name:   'agSafeArea',
+  name:   'cpmSafeArea',
   mixins: [ Component ],
   props:  {
     bgColor: {

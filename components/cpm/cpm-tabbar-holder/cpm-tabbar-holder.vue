@@ -18,7 +18,7 @@ import { mapState } from 'vuex';
 import AgSafeArea   from '@/components/ag/ag-safe-area/ag-safe-area';
 
 export default {
-  name:       'agTabbarHolder',
+  name:       'cpmTabbarHolder',
   components: { AgSafeArea },
   props:      {
     fixed:       Boolean,

@@ -15,7 +15,7 @@
 
 <script>
 	export default {
-		name: 'agLoading',
+		name: 'cpmLoading',
 		props: {
 			show: Boolean,
 			color: String,
@@ -38,7 +38,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;

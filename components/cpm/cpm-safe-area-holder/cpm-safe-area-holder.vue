@@ -7,19 +7,19 @@
       :class="[fixed ? 'safe-area-container--fixed' : '', shadow ? 'safe-area-container--shadow' : '']"
     >
       <slot />
-      <ag-safe-area :bg-color="bgColor" />
+      <cpm-safe-area :bg-color="bgColor" />
     </view>
   </view>
 </template>
 
 <script>
-import AgSafeArea from '@/components/ag/ag-safe-area/ag-safe-area';
-import Component  from '@/core/mixins/Component';
+import Component   from '@/core/mixins/Component';
+import CpmSafeArea from '@/components/ag/cpm-safe-area/cpm-safe-area';
 
 export default {
-  name:       'agSafeAreaHolder',
+  name:       'cpmSafeAreaHolder',
+  components: { CpmSafeArea },
   mixins:     [ Component ],
-  components: { AgSafeArea },
   props:      {
     fixed:       {
       type:    Boolean,

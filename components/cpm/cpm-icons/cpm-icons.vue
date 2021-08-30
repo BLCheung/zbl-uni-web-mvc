@@ -39,7 +39,7 @@ domModule.addRule('fontFace', {
  * @event {Function} click 点击 Icon 触发事件
  */
 export default {
-  name:    'ag-icons',
+  name:    'cpm-icons',
   props:   {
     type:      {
       type:    String,
