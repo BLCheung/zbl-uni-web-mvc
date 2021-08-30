@@ -12,8 +12,6 @@ export default {
   },
   // 存放请求model
   _modelMap:  {},
-  // 存放事件
-  _events:    [],
   // 请求辅助kit
   requestKit: new RequestKit(),
   
@@ -101,7 +99,8 @@ export default {
      * @private
      */
     _initModels() {
-      const models = this.onRegisterModel();
+      this._modelMap = {};
+      const models   = this.onRegisterModel();
       if (models.length === 0) return;
       for (let i = 0, modelsSize = models.length; i < modelsSize; i++) {
         const modelItem                  = models[i];
