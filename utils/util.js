@@ -55,11 +55,12 @@ function checkImgExists(imgurl) {
 }
 
 /**
- * @param {date}  Date实例
- * @param {format}  格式
+ * 格式化时间
+ * @param str
+ * @param format
  */
 function formatDate(str, format) {
-  //兼容ios 格式化
+  // 兼容ios 格式化
   if (typeof str == 'string') {
     str = str.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
   }
@@ -77,7 +78,11 @@ function formatDate(str, format) {
   if (format == 'MM-DD') return `${ month }-${ day }`;
 }
 
-//兼容ios 时间格式化
+/**
+ * 兼容ios 时间格式化
+ * @param str
+ * @return {string}
+ */
 function formatDateIos(str) {
   return str.split('.')[0].replace(/-/g, '/').replace(/T/g, ' ');
 }
@@ -96,20 +101,20 @@ function getPathFileName(path) {
 
 /**
  * 获取url附加参数
- * @param locationsearch
+ * @param url
  * @return {Object}
  */
-const getUrlPathParam = (locationsearch) => {
-  let url        = locationsearch;
-  let theRequest = new Object();
-  if (url.indexOf('?') != -1) {
-    let str  = url.substr(url.indexOf('?') + 1);
-    let strs = str.split('&');
-    for (let i = 0; i < strs.length; i++) {
-      theRequest[strs[i].split('=')[0]] = (strs[i].split('=')[1]);
-    }
+const getUrlPathParam = (url) => {
+  if (url.indexOf('?') === -1) {
+    return null;
   }
-  return theRequest;
+  let params = {};
+  let str    = url.substr(url.indexOf('?') + 1);
+  let strs   = str.split('&');
+  for (let i = 0; i < strs.length; i++) {
+    params[strs[i].split('=')[0]] = (strs[i].split('=')[1]);
+  }
+  return params;
 }
 
 function appendUrlParams(url, params = {}) {
