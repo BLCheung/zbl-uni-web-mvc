@@ -1,14 +1,14 @@
-import Api            from '@/common/api';
-import ResultKit      from './result-kit';
-import UserKit        from '@/kit/user-kit';
-import HTTPMethodEnum from '@/enum/http-method-enum';
+import Api         from '@/common/api';
+import ResultKit   from './result-kit';
+import UserKit     from '@/kit/user-kit';
+import HttpRequest from '@/enum/http-request-enum';
 
 export default class HTTPKit {
   
   static async GET(url, data) {
     return await this._request({
       url,
-      method: HTTPMethodEnum.GET,
+      method: HttpRequest.GET,
       data,
     });
   }
@@ -16,7 +16,7 @@ export default class HTTPKit {
   static async POST(url, data) {
     return await this._request({
       url,
-      method: HTTPMethodEnum.POST,
+      method: HttpRequest.POST,
       data,
     });
   }
@@ -24,7 +24,7 @@ export default class HTTPKit {
   static async PUT(url, data) {
     return await this._request({
       url,
-      method: HTTPMethodEnum.PUT,
+      method: HttpRequest.PUT,
       data,
     });
   }
@@ -32,7 +32,7 @@ export default class HTTPKit {
   static async DELETE(url, data) {
     return await this._request({
       url,
-      method: HTTPMethodEnum.DELETE,
+      method: HttpRequest.DELETE,
       data,
     });
   }

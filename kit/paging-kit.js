@@ -1,11 +1,11 @@
-import Api            from '@/common/api';
-import HTTPKit        from './http-kit';
-import ResultKit      from './result-kit';
-import HTTPMethodEnum from '@/enum/http-method-enum';
+import Api         from '@/common/api';
+import HTTPKit     from './http-kit';
+import ResultKit   from './result-kit';
+import HttpRequest from '@/enum/http-request-enum';
 
 export default class PagingKit {
   
-  constructor(url, params = {}, method = HTTPMethodEnum.GET, pageSize = 10, pageNumber = 1) {
+  constructor(url, params = {}, method = HttpRequest.GET, pageSize = 10, pageNumber = 1) {
     this.url        = url;
     this.params     = params;
     this.method     = method;

@@ -1,8 +1,8 @@
-import Api            from '@/common/api';
-import HTTPKit        from '@/kit/http-kit';
-import PagingKit      from '@/kit/paging-kit';
-import HTTPMethodEnum from '@/enum/http-method-enum';
-import ResultKit      from '@/kit/result-kit';
+import Api         from '@/common/api';
+import HTTPKit     from '@/kit/http-kit';
+import PagingKit   from '@/kit/paging-kit';
+import HttpRequest from '@/enum/http-request-enum';
+import ResultKit   from '@/kit/result-kit';
 
 export default class BaseModel {
   /**
@@ -35,7 +35,7 @@ export default class BaseModel {
    * @param pageNumber
    * @returns {PagingKit}
    */
-  static paging(url, params = {}, method = HTTPMethodEnum.GET, pageSize = 10, pageNumber = 1) {
+  static paging(url, params = {}, method = HttpRequest.GET, pageSize = 10, pageNumber = 1) {
     return new PagingKit(url, params, method, pageSize, pageNumber);
   }
   
@@ -47,7 +47,7 @@ export default class BaseModel {
    * @param data 请求内容
    * @param query query参数
    */
-  static TaskItem(url, method = HTTPMethodEnum.GET, data = {}, query = {}) {
+  static TaskItem(url, method = HttpRequest.GET, data = {}, query = {}) {
     return {
       url,
       method,
