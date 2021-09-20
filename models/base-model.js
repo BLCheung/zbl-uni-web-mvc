@@ -3,6 +3,7 @@ import HTTPKit     from '@/kit/http-kit';
 import PagingKit   from '@/kit/paging-kit';
 import HttpRequest from '@/enum/http-request-enum';
 import ResultKit   from '@/kit/result-kit';
+import util        from '@/utils/util';
 
 export default class BaseModel {
   /**
@@ -21,10 +22,7 @@ export default class BaseModel {
    * 任务名字
    * model.task [user.login]
    */
-  static T(task) {
-    console.log(task);
-    return this.name() + '.' + task;
-  }
+  static T(task) { return this.name() + '.' + task; }
   
   /**
    * 返回一个分页
@@ -44,15 +42,13 @@ export default class BaseModel {
    * 定义一个网络请求
    * @param url 请求链接
    * @param method 请求方法
-   * @param data 请求内容
-   * @param query query参数
+   * @param pathKeys 请求链接的参数名称
    */
-  static TaskItem(url, method = HttpRequest.GET, data = {}, query = {}) {
+  static TaskItem(url, method = HttpRequest.GET, pathKeys = []) {
     return {
       url,
       method,
-      initData:  data,
-      initQuery: query,
+      pathKeys,
     };
   }
   
@@ -66,43 +62,31 @@ export default class BaseModel {
    * 发起一个网络请求任务
    * @param name 任务名称
    * @param data 任务数据
-   * @param query 任务url方式拼接参数
+   * @param pathValues 接口url路径参数值
    * @returns {ResultKit|*}
    */
-  doTask(name, data = {}, query = {}) {
+  doTask(name, data = {}, pathValues = []) {
     let taskItem = this._taskList[name];
     Api.assert(taskItem, '未定义网络任务:' + name);
-    let { url, method, initData, initQuery } = taskItem;
-    let newData                              = { ...initData, ...data };
-    let newQuery                             = { ...initQuery, ...query };
-    
-    let newUrl       = this._appendQueryParams(url, newQuery);
+    let { url, method, initData, pathKeys } = taskItem;
+    let newData                             = { ...initData, ...data };
+    if (pathKeys.length !== 0) {
+      url = this._appendPathParams(url, pathKeys, pathValues);
+    }
     const methodType = method.toUpperCase();
     if (!HTTPKit[methodType]) {
       console.error(`未定义网络请求方式：${ method }`);
       return ResultKit.Failed(`未定义网络请求方式：${ method }`, null);
     }
     
-    return HTTPKit[methodType](newUrl, newData);
+    return HTTPKit[methodType](url, newData);
   }
   
-  _appendQueryParams(url, query = {}) {
-    let and = '?';
-    if (url.indexOf('?') != -1) {
-      and = '&';
-    }
-    return url + and + this._encodeQueryParams(query);
-  }
-  
-  _encodeQueryParams(obj) {
-    let params = [];
-    Object.keys(obj).forEach((key) => {
-      let value = obj[key];
-      if (typeof value === 'undefined') {
-        value = '';
-      }
-      params.push([ key, encodeURIComponent(value) ].join('='));
+  _appendPathParams(url, pathKeys = [], pathValues = []) {
+    let newUrl = '';
+    util.forEach(pathKeys, (key, index) => {
+      newUrl = url.replace(key, pathValues[index]);
     });
-    return params.join('&');
+    return newUrl;
   }
 }
