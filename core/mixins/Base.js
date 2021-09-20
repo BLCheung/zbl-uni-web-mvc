@@ -21,6 +21,8 @@ export default {
     ...mapGetters('system', [ 'system' ]),
     
     ...mapState('theme', [ 'color' ]),
+    
+    ...mapGetters('user', [ 'isLogin' ]),
   },
   
   methods: {
@@ -42,12 +44,6 @@ export default {
      * @param taskName
      */
     onTaskCompleted(res, taskName) { console.error('未重写onTaskCompleted方法'); },
-    
-    /**
-     * 用户是否已登录
-     * @return {boolean}
-     */
-    isLogin() { return !!UserKit.getToken(); },
     
     /**
      * 同步执行 任务
