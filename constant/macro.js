@@ -1,4 +1,4 @@
 export default {
-  OK:   1,
+  OK:   0,
   Fail: -1,
 };

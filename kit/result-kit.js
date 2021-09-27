@@ -3,7 +3,7 @@ import Macro from '@/constant/macro';
 export default class ResultKit {
   constructor(code = Macro.Fail, msg = '', data = null) {
     this.code = code;
-    this.ok   = code === Macro.OK;
+    this.ok   = this.code === Macro.OK;
     this.msg  = msg;
     this.data = data;
   }
