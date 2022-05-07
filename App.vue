@@ -1,5 +1,4 @@
 <script>
-import ASY   from '@/base/asy';
 import util  from '@/utils/util';
 import store from '@/store';
 
@@ -20,7 +19,7 @@ export default {
       console.log('params:', params);
       let { token, ad_id = null } = params;
       token && store.commit('user/setToken', decodeURIComponent(token));
-      store.state.user.ad_id = ad_id;
+      store.state.user.ad_id      = ad_id;
       store.state.user.session_id = parseInt(new Date().getTime() / 1000);
     },
   },
